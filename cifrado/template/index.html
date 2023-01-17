@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link rel="stylesheet" href="index.css"> -->
+<link rel="stylesheet" href='{% static "./index.css" %}'>
+</head>
+<body>
+    
+<div class="container contact-form">
+           <a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_blank"><div class="contact-image">
+                <img src="https://1.bp.blogspot.com/-KOWJaU9v1ew/UHHYo3CW6EI/AAAAAAAAA-4/ZIf9lSu-zlk/s1600/caesar_cipher_encryption_decryption_cryptography_technique.jpg" alt="rocket_contact"/>
+            </div></a> 
+            <form method="post" id="formularioCifrado">
+                {% csrf_token %}
+                <h3>Caesar Cipher</h3>
+               <div class="row">
+                    <div class="col-md-12">
+                   
+                        <div class="form-group">
+                            <input type="text" name="apodo" class="form-control" placeholder="Your name*" id="apodo" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="clave" class="form-control" placeholder="Your code *" id="clave" value=""  />
+                        </div>
+                           <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea name="mensaje" class="form-control"  placeholder="Your Message * " style="width: 100%; height: 150px;">{{consulta}}</textarea>
+                        </div>
+                    </div>
+                                  
+              <div class="form-group">
+                            <button class="btnContact"  type="button" onclick="PostMenu()">Send Message </button>
+                            <!-- <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" /> -->
+                        </div>
+                    </div>
+   
+                </div>
+            </form>
+
+
+
+            <div class="container ">
+                
+                <!-- <div class="row "> -->
+                    <div class="well">
+                 
+                        <p id="texto"> </p>
+                        <h1 class="text-center" id="count-down-timer"></h1>
+                       
+                        <!-- <form id="envio" action="/delete/{{cod_cifrado}}" method="post"> {% csrf_token %}</form> -->
+                        
+        
+                        <p ></p>
+                        <div class="list-group">
+                    <h1 class="text-center">text Cipher</h1>
+                    <!-- <p>{{consulta}}</p> -->
+                         
+                        
+                        {% for cifrar in cifrarT %}
+                        <form action="" method="post" id="formulario{{cifrar.id}}">
+                            {% csrf_token %}
+                         
+                         <input type="hidden" name="texto" value="10" id="textoclave{{cifrar.id}}"> 
+
+                  
+                      <a href="#" class="list-group-item ">
+                         
+                               
+               
+                            <div class="col-md-12 ">
+                                        <figure class="pull-left d-inline p-2">
+                                    <img class="image"  src="https://img.freepik.com/vector-gratis/sigueme-diseno-tematica-social-empresarial_24877-50426.jpg?w=740&t=st=1673925471~exp=1673926071~hmac=65e5de523ce1eed51467a31c127227c2f7a788363aecd5b67fd5f7e5205b3db9" alt="img" >
+                                </figure>
+                                <h4 class="list-group-item-heading d-inline p-2">{{cifrar.nickname}}</h4>
+                                <p class="list-group-item-text">  {{cifrar.message}}</p>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <!-- <h2 id="count-down-timer"> 14240 <small> seconds </small></h2> -->
+                                <!-- <button type="button" class="btn btn-default btn-lg btn-block"> Cipher </button> -->
+                                <button onclick="envioclave(`textoclave{{cifrar.id}}`)" class="btn btn-outline-info pull-right btn-envio" id="index_btn" name="buscando" value="{{cifrar.id}}"> <i class="glyphicon glyphicon-transfer btn-xd"></i> <span class="btn-xd">Descifrar</span>  
+                                </button>
+                                <a id="user{{cifrar.id}}" onclick="DeleteMenu(`{% url 'delete' cifrar.id %}`,`user{{cifrar.id}}`)" class="btn btn-danger pull-right btn-envio" id="index_btn-red" name="buscando" value="{{cifrar.id}}"> <span class="btn-xd">Delete Message</span>  
+                                </a>
+                            </div>
+                            
+                      </a>   
+                     </form>
+                      {% endfor %}
+                    </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+</div>
+
+
+<script src='{%static "./index.js" %}'></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
